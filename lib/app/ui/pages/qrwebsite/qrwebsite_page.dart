@@ -1,4 +1,5 @@
 import 'package:app_yanapay_qr/app/controllers/qrwebsite_controller.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:app_yanapay_qr/app/ui/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -36,6 +37,14 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                           data: controller.qrData.value,
                           version: QrVersions.auto,
                           size: 200.0,
+                          // ignore: deprecated_member_use
+                          foregroundColor: controller.qrColor.value,
+                          embeddedImage: controller.qrIcon.isNotEmpty
+                              ? AssetImage(controller.qrIcon.value)
+                              : null,
+                          embeddedImageStyle: const QrEmbeddedImageStyle(
+                            size: Size(40, 40),
+                          ),
                         ),
                       );
                     } else {
@@ -70,9 +79,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                         controller.setUrl(value);
                       },
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -92,6 +99,76 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Selecciona el color'),
+                                    content: SingleChildScrollView(
+                                      child: ColorPicker(
+                                        pickerColor: controller.qrColor.value,
+                                        onColorChanged: (color) {
+                                          controller.setQrColor(color);
+                                        },
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Seleccionar'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(15),
+                              backgroundColor: controller.qrColor.value,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: const Text(
+                              "Seleccionar Color",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              controller
+                                  .setQrIcon('assets/images/link-icon.png');
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(15),
+                              backgroundColor: SECONDARY,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: const Text(
+                              "Seleccionar Icono",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

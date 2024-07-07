@@ -1,11 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class QrWebsiteController extends GetxController {
   var url = ''.obs;
   var qrData = ''.obs;
+  var qrColor = Colors.black.obs;
+  var qrIcon = ''.obs;
 
   void setUrl(String value) {
     url.value = value;
+  }
+
+  void setQrColor(Color color) {
+    qrColor.value = color;
+  }
+
+  void setQrIcon(String path) {
+    qrIcon.value = path;
   }
 
   bool _isValidURL(String url) {
