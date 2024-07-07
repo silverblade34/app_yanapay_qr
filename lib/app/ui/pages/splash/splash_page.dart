@@ -14,7 +14,7 @@ class SplashPage extends GetView<SplashController> {
       items: [
         IntroductionSliderItem(
           logo: Image.asset(
-            'assets/images/logo_prueba.png',
+            'assets/images/icono-llama-qr.png',
             width: 300,
             height: 300,
           ),
@@ -42,14 +42,14 @@ class SplashPage extends GetView<SplashController> {
         ),
         IntroductionSliderItem(
           logo: Image.asset(
-            'assets/images/intro2.png',
+            'assets/images/icono-splash-qr.png',
             width: 350,
             height: 350,
           ),
           title: const Padding(
             padding: EdgeInsets.all(15.0),
             child: Text(
-              "Rapido y eficaz",
+              "Rapido y personalizable",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class SplashPage extends GetView<SplashController> {
           subtitle: const Padding(
             padding: EdgeInsets.all(15.0),
             child: Text(
-              "Solo escanee el codigo QR del estudiante y se registrara su asistencia.",
+              "Genera codigos QR personalizables",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -70,24 +70,27 @@ class SplashPage extends GetView<SplashController> {
               ),
             ),
           ),
-          backgroundColor: BACK_LIGHT,
+          backgroundColor: BACK_LIGHT_INDIGO,
         ),
       ],
       done: Done(
+        animationDuration: const Duration(milliseconds: 500),
         child: Container(
           padding: const EdgeInsets.all(10),
-          child: const Text("Iniciar"),
+          child: const Icon(Icons.check),
         ),
         home: const HomePage(),
       ),
       next: const Next(
         child: Icon(Icons.arrow_forward),
+        animationDuration: Duration(milliseconds: 500),
         style: ButtonStyle(
           iconColor: WidgetStatePropertyAll(PRIMARY),
         ),
       ),
       back: const Back(
         child: Icon(Icons.arrow_back),
+        animationDuration: Duration(milliseconds: 500),
         style: ButtonStyle(
           iconColor: WidgetStatePropertyAll(PRIMARY),
         ),
