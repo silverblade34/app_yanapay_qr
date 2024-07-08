@@ -1,5 +1,4 @@
 import 'package:app_yanapay_qr/app/controllers/qrwebsite_controller.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:app_yanapay_qr/app/ui/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -24,9 +23,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -56,26 +53,19 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                   }),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Escribe tu URL Aquí",
-                      style: TextStyle(fontSize: H3),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const Text("Escribe tu URL Aquí",
+                        style: TextStyle(fontSize: H3)),
+                    const SizedBox(height: 10),
                     TextField(
                       controller: controller.linkUrl,
-                      decoration: const InputDecoration(
-                        hintText: 'Ingrese el link',
-                      ),
+                      decoration:
+                          const InputDecoration(hintText: 'Ingrese el link'),
                     ),
                     const SizedBox(height: 30),
                     SizedBox(
@@ -88,38 +78,24 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                           padding: const EdgeInsets.all(15),
                           backgroundColor: SECONDARY,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                8.0), // Cambia el valor de 8.0 por el radio deseado
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                        child: const Text(
-                          "Generar QR",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: const Text("Generar QR",
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     const Row(
                       children: [
                         Icon(Icons.settings),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "Opciones",
-                          style: TextStyle(fontSize: H3),
-                        ),
+                        SizedBox(width: 5),
+                        Text("Opciones", style: TextStyle(fontSize: H3)),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     const Text("Seleccione un color: "),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -152,25 +128,28 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                               top: BorderSide(width: 1.3, color: GREY_HARD),
                               right: BorderSide(width: 1.3, color: GREY_HARD),
                               bottom: BorderSide(width: 1.3, color: GREY_HARD),
-                              left:
-                                  BorderSide.none, // No border on the left side
+                              left: BorderSide.none,
                             ),
                           ),
-                          child: Container(
-                            decoration: const BoxDecoration(color: PRIMARY),
-                            width: 40,
-                            height: 40,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.pickColor(context);
+                            },
+                            child: Obx(
+                              () => Container(
+                                decoration: BoxDecoration(
+                                    color: controller.qrColor.value),
+                                width: 40,
+                                height: 40,
+                              ),
+                            ),
                           ),
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     const Text("Seleccione un icono: "),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -193,8 +172,8 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                           padding: const EdgeInsets.all(6),
                           width: 60,
                           height: 56.5,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
                               topRight: Radius.circular(8),
                               bottomRight: Radius.circular(8),
                             ),
@@ -202,17 +181,21 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                               top: BorderSide(width: 1.3, color: GREY_HARD),
                               right: BorderSide(width: 1.3, color: GREY_HARD),
                               bottom: BorderSide(width: 1.3, color: GREY_HARD),
-                              left:
-                                  BorderSide.none, // No border on the left side
+                              left: BorderSide.none,
                             ),
                           ),
-                          child: Image.asset(
-                            "assets/images/icon-image.png",
-                            width: 20,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.pickIcon();
+                            },
+                            child: Image.asset(
+                              "assets/images/icon-image.png",
+                              width: 20,
+                            ),
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
