@@ -25,7 +25,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +50,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                     } else {
                       return Image.asset(
                         "assets/images/qr-example.png",
-                        width: 250,
+                        width: 220,
                       );
                     }
                   }),
@@ -66,18 +66,16 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                   children: [
                     const Text(
                       "Escribe tu URL Aquí",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: H3),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextField(
+                      controller: controller.linkUrl,
                       decoration: const InputDecoration(
                         hintText: 'Ingrese el link',
                       ),
-                      onChanged: (value) {
-                        controller.setUrl(value);
-                      },
                     ),
                     const SizedBox(height: 30),
                     SizedBox(
@@ -101,75 +99,120 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
-                    Row(
+                    const Row(
                       children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Selecciona el color'),
-                                    content: SingleChildScrollView(
-                                      child: ColorPicker(
-                                        pickerColor: controller.qrColor.value,
-                                        onColorChanged: (color) {
-                                          controller.setQrColor(color);
-                                        },
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        child: const Text('Seleccionar'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(15),
-                              backgroundColor: controller.qrColor.value,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            child: const Text(
-                              "Seleccionar Color",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+                        Icon(Icons.settings),
+                        SizedBox(
+                          width: 5,
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              controller
-                                  .setQrIcon('assets/images/link-icon.png');
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(15),
-                              backgroundColor: SECONDARY,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            child: const Text(
-                              "Seleccionar Icono",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+                        Text(
+                          "Opciones",
+                          style: TextStyle(fontSize: H3),
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text("Seleccione un color: "),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: controller.selectColor,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                ),
+                              ),
+                              hintText: "#FFFFFF",
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          width: 60,
+                          height: 56.5,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                            ),
+                            border: Border(
+                              top: BorderSide(width: 1.3, color: GREY_HARD),
+                              right: BorderSide(width: 1.3, color: GREY_HARD),
+                              bottom: BorderSide(width: 1.3, color: GREY_HARD),
+                              left:
+                                  BorderSide.none, // No border on the left side
+                            ),
+                          ),
+                          child: Container(
+                            decoration: const BoxDecoration(color: PRIMARY),
+                            width: 40,
+                            height: 40,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text("Seleccione un icono: "),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                ),
+                              ),
+                              hintText: "Selecciona una imagen",
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          width: 60,
+                          height: 56.5,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                            ),
+                            border: Border(
+                              top: BorderSide(width: 1.3, color: GREY_HARD),
+                              right: BorderSide(width: 1.3, color: GREY_HARD),
+                              bottom: BorderSide(width: 1.3, color: GREY_HARD),
+                              left:
+                                  BorderSide.none, // No border on the left side
+                            ),
+                          ),
+                          child: Image.asset(
+                            "assets/images/icon-image.png",
+                            width: 20,
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),

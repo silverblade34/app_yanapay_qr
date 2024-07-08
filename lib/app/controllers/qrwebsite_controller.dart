@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class QrWebsiteController extends GetxController {
-  var url = ''.obs;
+  TextEditingController linkUrl = TextEditingController();
+    TextEditingController selectColor = TextEditingController();
   var qrData = ''.obs;
   var qrColor = Colors.black.obs;
   var qrIcon = ''.obs;
 
-  void setUrl(String value) {
-    url.value = value;
-  }
-
+ 
   void setQrColor(Color color) {
     qrColor.value = color;
   }
@@ -26,8 +24,8 @@ class QrWebsiteController extends GetxController {
   }
 
   void generateQr() {
-    if (_isValidURL(url.value)) {
-      qrData.value = url.value;
+    if (_isValidURL(linkUrl.text)) {
+      qrData.value = linkUrl.text;
     } else {
       Get.snackbar("Error", "Por favor, ingrese un enlace válido.");
     }
