@@ -19,6 +19,6 @@ const Color SECONDARY = Color.fromARGB(255, 252, 75, 89);
 const Color SECONDARY_LIGHT = Color.fromARGB(255, 255, 107, 119);
 const Color BACK_LIGHT = Color.fromARGB(255, 252, 253, 255);
 const Color BACK_LIGHT_INDIGO = Color.fromARGB(255, 234, 236, 255);
-const Color TEXT_LIGHT = Color.fromARGB(255, 191, 191, 199);
+const Color TEXT_LIGHT = Color.fromARGB(255, 184, 184, 190);
 const Color GREY_HARD = Color.fromARGB(255, 84, 85, 88);
 const Color GREY_LIGHT = Color.fromARGB(255, 116, 116, 116);

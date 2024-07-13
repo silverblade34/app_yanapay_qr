@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:app_yanapay_qr/app/controllers/qrwebsite_controller.dart';
+import 'package:app_yanapay_qr/app/ui/pages/qrwebsite/widgets/row_selected.dart';
 import 'package:app_yanapay_qr/app/ui/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -23,7 +26,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -36,8 +39,12 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                           size: 200.0,
                           // ignore: deprecated_member_use
                           foregroundColor: controller.qrColor.value,
+                          gapless: false,
+                          errorCorrectionLevel: QrErrorCorrectLevel.H,
                           embeddedImage: controller.qrIcon.isNotEmpty
-                              ? AssetImage(controller.qrIcon.value)
+                              ? Image.file(
+                                  File(controller.qrIcon.value),
+                                ).image
                               : null,
                           embeddedImageStyle: const QrEmbeddedImageStyle(
                             size: Size(40, 40),
@@ -53,7 +60,6 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                   }),
                 ],
               ),
-              const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -96,106 +102,80 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                     const SizedBox(height: 15),
                     const Text("Seleccione un color: "),
                     const SizedBox(height: 5),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: controller.selectColor,
-                            decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8),
-                                ),
-                              ),
-                              hintText: "#FFFFFF",
-                            ),
+                    GestureDetector(
+                      onTap: () {
+                        controller.pickColor(context);
+                      },
+                      child: Obx(
+                        () => RowSelected(
+                          controller: controller.selectColor,
+                          childInput: Container(
+                            decoration:
+                                BoxDecoration(color: controller.qrColor.value),
+                            width: 40,
+                            height: 40,
                           ),
+                          placeholder: "#FFFFFF",
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          width: 60,
-                          height: 56.5,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomRight: Radius.circular(8),
-                            ),
-                            border: Border(
-                              top: BorderSide(width: 1.3, color: GREY_HARD),
-                              right: BorderSide(width: 1.3, color: GREY_HARD),
-                              bottom: BorderSide(width: 1.3, color: GREY_HARD),
-                              left: BorderSide.none,
-                            ),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.pickColor(context);
-                            },
-                            child: Obx(
-                              () => Container(
-                                decoration: BoxDecoration(
-                                    color: controller.qrColor.value),
-                                width: 40,
-                                height: 40,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                     const SizedBox(height: 15),
                     const Text("Seleccione un icono: "),
                     const SizedBox(height: 5),
+                    GestureDetector(
+                      onTap: () async {
+                        await controller.pickIcon(context);
+                      },
+                      child: RowSelected(
+                        controller: controller.selectImage,
+                        childInput: Image.asset(
+                          "assets/images/icon-image.png",
+                          width: 20,
+                        ),
+                        placeholder: "Selecciona una imagen",
+                      ),
+                    ),
+                    const SizedBox(height: 15),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8),
-                                ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              controller.saveQrImage();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(15),
+                              backgroundColor: PRIMARY,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                              hintText: "Selecciona una imagen",
+                            ),
+                            child: const Text("Descargar",
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        SizedBox(
+                          width: 50,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(12),
+                              backgroundColor: BACK_LIGHT_INDIGO,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.share,
+                              color: PRIMARY,
                             ),
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(6),
-                          width: 60,
-                          height: 56.5,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomRight: Radius.circular(8),
-                            ),
-                            border: Border(
-                              top: BorderSide(width: 1.3, color: GREY_HARD),
-                              right: BorderSide(width: 1.3, color: GREY_HARD),
-                              bottom: BorderSide(width: 1.3, color: GREY_HARD),
-                              left: BorderSide.none,
-                            ),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.pickIcon();
-                            },
-                            child: Image.asset(
-                              "assets/images/icon-image.png",
-                              width: 20,
-                            ),
-                          ),
-                        )
                       ],
                     ),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
