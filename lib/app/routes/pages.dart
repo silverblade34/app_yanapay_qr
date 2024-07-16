@@ -1,7 +1,9 @@
 import 'package:app_yanapay_qr/app/bindings/home_binding.dart';
+import 'package:app_yanapay_qr/app/bindings/qrtext_binding.dart';
 import 'package:app_yanapay_qr/app/bindings/qrwebsite_binding.dart';
 import 'package:app_yanapay_qr/app/middlewares/global_middleware.dart';
 import 'package:app_yanapay_qr/app/ui/pages/home/home_page.dart';
+import 'package:app_yanapay_qr/app/ui/pages/qrtext/qrtext_page.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrwebsite/qrwebsite_page.dart';
 import 'package:app_yanapay_qr/app/ui/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
@@ -27,6 +29,12 @@ abstract class AppPages {
       page: () => const QrWebsitePage(),
       transition: Transition.fadeIn,
       binding: QrWebsiteBinding(),
+    ),
+    GetPage(
+      name: Routes.QR_TEXT,
+      page: () => const QrTextPage(),
+      transition: Transition.fadeIn,
+      binding: QrTextBinding(),
     )
   ];
 }

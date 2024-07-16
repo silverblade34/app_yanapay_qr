@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:app_yanapay_qr/app/controllers/qrwebsite_controller.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrwebsite/widgets/row_selected.dart';
 import 'package:app_yanapay_qr/app/ui/utils/style_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:get/get.dart';
 
 class QrWebsitePage extends GetView<QrWebsiteController> {
@@ -26,35 +24,41 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(() {
                     if (controller.qrData.isNotEmpty) {
-                      return Center(
-                        child: QrImageView(
-                          data: controller.qrData.value,
-                          version: QrVersions.auto,
-                          size: 200.0,
-                          // ignore: deprecated_member_use
-                          foregroundColor: controller.qrColor.value,
-                          gapless: false,
-                          errorCorrectionLevel: QrErrorCorrectLevel.H,
-                          embeddedImage: controller.qrIcon.isNotEmpty
-                              ? Image.file(
-                                  File(controller.qrIcon.value),
-                                ).image
-                              : null,
-                          embeddedImageStyle: const QrEmbeddedImageStyle(
-                            size: Size(40, 40),
+                      return Container(
+                        width: 200,
+                        padding: const EdgeInsets.all(5),
+                        child: PrettyQrView(
+                          qrImage: QrImage(
+                            QrCode.fromData(
+                              data: controller.qrData.value,
+                              errorCorrectLevel: QrErrorCorrectLevel.H,
+                            ),
+                          ),
+                          decoration: PrettyQrDecoration(
+                            background: Colors.white,
+                            // ignore: non_const_call_to_literal_constructor
+                            shape: PrettyQrSmoothSymbol(
+                              color: controller.qrColor.value,
+                            ),
+                            image: controller.qrIconImageProvider.value != null
+                                ? PrettyQrDecorationImage(
+                                    image:
+                                        controller.qrIconImageProvider.value!,
+                                  )
+                                : null,
                           ),
                         ),
                       );
                     } else {
                       return Image.asset(
                         "assets/images/qr-example.png",
-                        width: 220,
+                        width: 200,
                       );
                     }
                   }),
@@ -159,7 +163,9 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                         SizedBox(
                           width: 50,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.shareQrImage();
+                            },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12),
                               backgroundColor: BACK_LIGHT_INDIGO,

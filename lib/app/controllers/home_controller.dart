@@ -17,7 +17,7 @@ class HomeController extends GetxController {
     TypeQr(
       image: "assets/images/texto.png",
       name: "Texto",
-      to: "/textoqr",
+      to: "/qrtext",
     ),
     TypeQr(
       image: "assets/images/llamada.png",
