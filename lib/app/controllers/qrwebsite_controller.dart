@@ -30,30 +30,16 @@ class QrWebsiteController extends GetxController {
     qrColor.value = color;
   }
 
-  void setQrIcon(String path) {
+ void setQrIcon(String path) {
     qrIcon.value = path;
-    _loadImage(path).then((image) {
-      qrIconImage.value = image;
-    });
-
-    _loadImageProvider(path).then((image) {
-      qrIconImageProvider.value = image;
+    _loadImageProvider(path).then((imageProvider) {
+      qrIconImageProvider.value = imageProvider;
     });
   }
 
-  Future<ui.Image> _loadImage(String path) async {
-    final File imageFile = File(path);
-
-    if (await imageFile.exists()) {
-      final Uint8List bytes = await imageFile.readAsBytes();
-      final Completer<ui.Image> completer = Completer();
-      ui.decodeImageFromList(bytes, (ui.Image img) {
-        completer.complete(img);
-      });
-      return completer.future;
-    } else {
-      throw Exception('Image file not found: $path');
-    }
+    void setQrIconAsset(String assetPath) {
+    qrIcon.value = assetPath;
+    qrIconImageProvider.value = AssetImage(assetPath);
   }
 
   Future<ImageProvider<Object>?> _loadImageProvider(String path) async {

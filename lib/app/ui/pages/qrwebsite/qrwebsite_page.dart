@@ -2,7 +2,6 @@ import 'package:app_yanapay_qr/app/controllers/qrwebsite_controller.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrwebsite/widgets/row_selected.dart';
 import 'package:app_yanapay_qr/app/ui/utils/style_utils.dart';
 import 'package:screenshot/screenshot.dart';
-
 import 'package:flutter/material.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:get/get.dart';
@@ -63,7 +62,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                       );
                     } else {
                       return Image.asset(
-                        "assets/images/qr-example.png",
+                        "assets/images/qr-example.jpeg",
                         width: 200,
                       );
                     }
@@ -130,7 +129,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    const Text("Seleccione un icono: "),
+                    const Text("Suba un logo: "),
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () async {
@@ -144,6 +143,85 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                         ),
                         placeholder: "Selecciona una imagen",
                       ),
+                    ),
+                    const SizedBox(height: 15),
+                    const Text("O seleccione un logo: "),
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          child: Image.asset(
+                            'assets/images/facebook.png',
+                            width: 38,
+                            height: 38,
+                          ),
+                          onTap: () {
+                            controller
+                                .setQrIconAsset('assets/images/facebook.png');
+                          },
+                        ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          child: Image.asset(
+                            'assets/images/instagram.jpg',
+                            width: 38,
+                            height: 38,
+                          ),
+                          onTap: () {
+                            controller
+                                .setQrIconAsset('assets/images/instagram.jpg');
+                          },
+                        ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          child: Image.asset(
+                            'assets/images/linkedin.png',
+                            width: 38,
+                            height: 38,
+                          ),
+                          onTap: () {
+                            controller
+                                .setQrIconAsset('assets/images/linkedin.png');
+                          },
+                        ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          child: Image.asset(
+                            'assets/images/tiktok.png',
+                            width: 38,
+                            height: 38,
+                          ),
+                          onTap: () {
+                            controller
+                                .setQrIconAsset('assets/images/tiktok.png');
+                          },
+                        ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          child: Image.asset(
+                            'assets/images/youtube.png',
+                            width: 38,
+                            height: 38,
+                          ),
+                          onTap: () {
+                            controller
+                                .setQrIconAsset('assets/images/youtube.png');
+                          },
+                        ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          child: Image.asset(
+                            'assets/images/google.png',
+                            width: 38,
+                            height: 38,
+                          ),
+                          onTap: () {
+                            controller
+                                .setQrIconAsset('assets/images/google.png');
+                          },
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 15),
                     Row(

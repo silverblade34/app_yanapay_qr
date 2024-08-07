@@ -12,7 +12,7 @@ class HomeController extends GetxController {
     TypeQr(
       image: "assets/images/correo.png",
       name: "Correo",
-      to: "/emailqr",
+      to: "/qremail",
     ),
     TypeQr(
       image: "assets/images/texto.png",
@@ -22,12 +22,12 @@ class HomeController extends GetxController {
     TypeQr(
       image: "assets/images/llamada.png",
       name: "Llamada",
-      to: "/llamadaqr",
+      to: "/qrllamada",
     ),
     TypeQr(
-      image: "assets/images/sms.png",
-      name: "SMS",
-      to: "/smsqr",
+      image: "assets/images/whatsapp.png",
+      name: "Whatsapp",
+      to: "/qrwhatsapp",
     ),
     TypeQr(
       image: "assets/images/vcard.png",

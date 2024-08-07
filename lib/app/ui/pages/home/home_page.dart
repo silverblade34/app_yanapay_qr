@@ -132,7 +132,9 @@ class HomePage extends GetView<HomeController> {
         fixedColor: SECONDARY,
         currentIndex: 0,
         onTap: (index) async {
-          print(index);
+          if(index == 1){
+            Get.offAllNamed("/qrscan");
+          }
         },
         items: const [
           BottomNavigationBarItem(
