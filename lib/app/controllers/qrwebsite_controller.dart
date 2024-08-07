@@ -74,11 +74,13 @@ class QrWebsiteController extends GetxController {
   }
 
   Future<bool> _pedirPermisoGaleria() async {
-    PermissionStatus storagePermission = await Permission.storage.request();
-    PermissionStatus photosPermission = await Permission.photos.request();
+    final Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+      Permission.photos,
+    ].request();
 
-    return storagePermission == PermissionStatus.granted ||
-        photosPermission == PermissionStatus.granted;
+    return statuses[Permission.storage] == PermissionStatus.granted ||
+        statuses[Permission.photos] == PermissionStatus.granted;
   }
 
   void generateQr() {

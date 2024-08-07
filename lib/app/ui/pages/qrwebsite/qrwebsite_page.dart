@@ -26,7 +26,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -36,7 +36,8 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                         controller: controller.screenshotController,
                         child: Container(
                           width: 200,
-                          padding: const EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(color: Colors.white),
                           child: PrettyQrView(
                             qrImage: QrImage(
                               QrCode.fromData(
@@ -82,7 +83,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                       decoration:
                           const InputDecoration(hintText: 'Ingrese el link'),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
