@@ -5,19 +5,21 @@ import 'package:esys_flutter_share_plus/esys_flutter_share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:screenshot/screenshot.dart';
 
 class QrWebsiteController extends GetxController {
   TextEditingController linkUrl = TextEditingController();
   TextEditingController selectColor = TextEditingController();
   TextEditingController selectImage = TextEditingController();
+  ScreenshotController screenshotController = ScreenshotController();
+
   var qrData = ''.obs;
   var qrColor = Colors.black.obs;
   var qrIcon = ''.obs;
@@ -144,48 +146,25 @@ class QrWebsiteController extends GetxController {
     );
   }
 
-  Future<void> saveQrImage() async {}
-
-  Future<void> exportAndDownloadQrCode() async {
-    if (qrData.isNotEmpty) {
-      final screenshotController = ScreenshotController();
-
-      final prettyQrView = Screenshot(
-        controller: screenshotController,
-        child: PrettyQrView(
-          qrImage: QrImage(QrCode.fromData(
-            data: qrData.value,
-            errorCorrectLevel: QrErrorCorrectLevel.H,
-          )),
-          decoration: PrettyQrDecoration(
-            background: Colors.white,
-            shape: PrettyQrSmoothSymbol(
-              color: qrColor.value,
-            ),
-            image: qrIconImageProvider.value != null
-                ? PrettyQrDecorationImage(
-                    image: qrIconImageProvider.value!,
-                  )
-                : null, // Handle null qrIconImageProvider
-          ),
-        ),
-      );
-
-      final image = await screenshotController.capture(
-          delay: Duration(milliseconds: 100));
-
-      final tempDir = await getTemporaryDirectory();
-      final qrFilePath = '${tempDir.path}/qr_code.png';
-
-      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      final imageBytes = byteData!.buffer.asUint8List();
-
-      final qrFile = File(qrFilePath);
-      await qrFile.writeAsBytesSync(imageBytes);
-
-      Get.snackbar('QR Exportado', 'QR guardado en: $qrFilePath');
+  Future<void> saveQrImage() async {
+    final Uint8List? image = await screenshotController.capture();
+    if (image != null) {
+      final directory = await getTemporaryDirectory();
+      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      final imagePath = '${directory.path}/qr_code_$timestamp.png';
+      final imageFile = File(imagePath);
+      await imageFile.writeAsBytes(image);
+      await GallerySaver.saveImage(imageFile.path, albumName: "MyQRCode");
+      Get.snackbar("Éxito", "La imagen del QR se ha guardado en la galería");
     }
   }
 
-  Future<void> shareQrImage() async {}
+  Future<void> shareQrImage() async {
+    final Uint8List? image = await screenshotController.capture();
+    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    final imagePath = 'qr_code_$timestamp.png';
+    if (image != null) {
+      await Share.file('Indicadores', imagePath, image, 'image/png');
+    }
+  }
 }

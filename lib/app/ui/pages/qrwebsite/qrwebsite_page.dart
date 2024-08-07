@@ -1,6 +1,8 @@
 import 'package:app_yanapay_qr/app/controllers/qrwebsite_controller.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrwebsite/widgets/row_selected.dart';
 import 'package:app_yanapay_qr/app/ui/utils/style_utils.dart';
+import 'package:screenshot/screenshot.dart';
+
 import 'package:flutter/material.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:get/get.dart';
@@ -30,28 +32,31 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                 children: [
                   Obx(() {
                     if (controller.qrData.isNotEmpty) {
-                      return Container(
-                        width: 200,
-                        padding: const EdgeInsets.all(5),
-                        child: PrettyQrView(
-                          qrImage: QrImage(
-                            QrCode.fromData(
-                              data: controller.qrData.value,
-                              errorCorrectLevel: QrErrorCorrectLevel.H,
+                      return Screenshot(
+                        controller: controller.screenshotController,
+                        child: Container(
+                          width: 200,
+                          padding: const EdgeInsets.all(5),
+                          child: PrettyQrView(
+                            qrImage: QrImage(
+                              QrCode.fromData(
+                                data: controller.qrData.value,
+                                errorCorrectLevel: QrErrorCorrectLevel.H,
+                              ),
                             ),
-                          ),
-                          decoration: PrettyQrDecoration(
-                            background: Colors.white,
-                            // ignore: non_const_call_to_literal_constructor
-                            shape: PrettyQrSmoothSymbol(
-                              color: controller.qrColor.value,
+                            decoration: PrettyQrDecoration(
+                              background: Colors.white,
+                              shape: PrettyQrSmoothSymbol(
+                                color: controller.qrColor.value,
+                              ),
+                              image: controller.qrIconImageProvider.value !=
+                                      null
+                                  ? PrettyQrDecorationImage(
+                                      image:
+                                          controller.qrIconImageProvider.value!,
+                                    )
+                                  : null,
                             ),
-                            image: controller.qrIconImageProvider.value != null
-                                ? PrettyQrDecorationImage(
-                                    image:
-                                        controller.qrIconImageProvider.value!,
-                                  )
-                                : null,
                           ),
                         ),
                       );
