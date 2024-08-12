@@ -30,14 +30,14 @@ class QrWebsiteController extends GetxController {
     qrColor.value = color;
   }
 
- void setQrIcon(String path) {
+  void setQrIcon(String path) {
     qrIcon.value = path;
     _loadImageProvider(path).then((imageProvider) {
       qrIconImageProvider.value = imageProvider;
     });
   }
 
-    void setQrIconAsset(String assetPath) {
+  void setQrIconAsset(String assetPath) {
     qrIcon.value = assetPath;
     qrIconImageProvider.value = AssetImage(assetPath);
   }
@@ -73,7 +73,7 @@ class QrWebsiteController extends GetxController {
     if (_isValidURL(linkUrl.text)) {
       qrData.value = linkUrl.text;
     } else {
-      Get.snackbar("Error", "Por favor, ingrese un enlace válido.");
+      EasyLoading.showInfo("Por favor, ingrese un enlace válido.");
     }
   }
 
@@ -135,24 +135,47 @@ class QrWebsiteController extends GetxController {
   }
 
   Future<void> saveQrImage() async {
-    final Uint8List? image = await screenshotController.capture();
-    if (image != null) {
-      final directory = await getTemporaryDirectory();
-      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-      final imagePath = '${directory.path}/qr_code_$timestamp.png';
-      final imageFile = File(imagePath);
-      await imageFile.writeAsBytes(image);
-      await GallerySaver.saveImage(imageFile.path, albumName: "MyQRCode");
-      Get.snackbar("Éxito", "La imagen del QR se ha guardado en la galería");
+    if (qrData.value != "") {
+      EasyLoading.show(status: "Procesando...");
+      final Uint8List? image = await screenshotController.capture(
+        delay: const Duration(milliseconds: 10),
+        pixelRatio: 3.0,
+      );
+
+      if (image != null) {
+        final directory = await getTemporaryDirectory();
+        final String timestamp =
+            DateTime.now().millisecondsSinceEpoch.toString();
+        final imagePath = '${directory.path}/qr_code_$timestamp.png';
+        final imageFile = File(imagePath);
+        await imageFile.writeAsBytes(image);
+        EasyLoading.dismiss();
+        await GallerySaver.saveImage(imageFile.path, albumName: "MyQRCode");
+        Get.snackbar("Éxito", "La imagen del QR se ha guardado en la galería");
+      }
+    } else {
+      EasyLoading.showInfo("Aún no ha generado un código QR");
     }
   }
 
   Future<void> shareQrImage() async {
-    final Uint8List? image = await screenshotController.capture();
-    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-    final imagePath = 'qr_code_$timestamp.png';
-    if (image != null) {
-      await Share.file('Indicadores', imagePath, image, 'image/png');
+    if (qrData.value != "") {
+      EasyLoading.show(status: "Procesando...");
+
+      final Uint8List? image = await screenshotController.capture(
+        delay: const Duration(milliseconds: 10),
+        pixelRatio: 3.0,
+      );
+
+      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      final imagePath = 'qr_code_$timestamp.png';
+      EasyLoading.dismiss();
+
+      if (image != null) {
+        await Share.file('QR Code', imagePath, image, 'image/png');
+      }
+    } else {
+      EasyLoading.showInfo("Aún no ha generado un código QR");
     }
   }
 }

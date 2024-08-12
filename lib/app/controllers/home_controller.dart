@@ -20,8 +20,8 @@ class HomeController extends GetxController {
       to: "/qrtext",
     ),
     TypeQr(
-      image: "assets/images/llamada.png",
-      name: "Llamada",
+      image: "assets/images/calendario.png",
+      name: "Evento",
       to: "/qrllamada",
     ),
     TypeQr(

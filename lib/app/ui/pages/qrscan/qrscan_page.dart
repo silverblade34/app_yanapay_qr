@@ -17,7 +17,7 @@ class QrScanPage extends GetView<QrScanController> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(
-          'Yanapay QR',
+          'Escanear QR',
           style: TextStyle(fontSize: 19, color: Colors.white),
         ),
         backgroundColor: PRIMARY,
@@ -69,14 +69,16 @@ class QrScanPage extends GetView<QrScanController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            controller.qrContent.value,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
+                          Expanded(
+                            child: Text(
+                              controller.qrContent.value,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              maxLines: null,
+                              overflow: TextOverflow.visible,
                             ),
-                            maxLines: null,
-                            overflow: TextOverflow.visible,
                           ),
                           const SizedBox(width: 10),
                           GestureDetector(
@@ -115,10 +117,6 @@ class QrScanPage extends GetView<QrScanController> {
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner_rounded),
             label: 'Escanear',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Historial',
           ),
         ],
       ),

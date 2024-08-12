@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:vibration/vibration.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QrScanController extends GetxController {
   RxBool qrDetected = false.obs;
@@ -16,6 +17,16 @@ class QrScanController extends GetxController {
           qrContent.value = scanData.code!;
           previousQrContent = scanData.code!;
           vibrateDevice();
+
+          // Detectar si es un enlace mailto
+          if (qrContent.value.startsWith("mailto:")) {
+            _openEmailClient(qrContent.value);
+          }
+          // Detectar si es un enlace http o https
+          else if (qrContent.value.startsWith("http") ||
+              qrContent.value.startsWith("https")) {
+            _openUrl(qrContent.value);
+          }
         }
       }
     });
@@ -24,11 +35,23 @@ class QrScanController extends GetxController {
   void vibrateDevice() async {
     bool? canVibrate = await Vibration.hasVibrator();
     if (canVibrate ?? false) {
-      Vibration.vibrate(); // Vibrar el dispositivo
+      Vibration.vibrate();
     }
   }
 
   void copyToClipboard() {
     Clipboard.setData(ClipboardData(text: qrContent.value));
+  }
+
+  // Función para abrir URLs http o https
+  void _openUrl(String urlString) async {
+    Uri url = Uri.parse(urlString);
+    launchUrl(url);
+  }
+
+  // Función para abrir el cliente de correo
+  void _openEmailClient(String mailtoUrl) async {
+    Uri url = Uri.parse(mailtoUrl);
+    launchUrl(url);
   }
 }

@@ -67,8 +67,8 @@ class HomePage extends GetView<HomeController> {
               decoration: const BoxDecoration(
                 color: BACK_INDIGO,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
                 ),
               ),
               child: Obx(
@@ -144,10 +144,6 @@ class HomePage extends GetView<HomeController> {
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner_rounded),
             label: 'Escanear',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Historial',
           ),
         ],
       ),

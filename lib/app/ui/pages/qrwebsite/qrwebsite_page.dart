@@ -34,7 +34,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                       return Screenshot(
                         controller: controller.screenshotController,
                         child: Container(
-                          width: 200,
+                          width: 220,
                           padding: const EdgeInsets.all(10),
                           decoration: const BoxDecoration(color: Colors.white),
                           child: PrettyQrView(
@@ -52,7 +52,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                               image: controller.qrIconImageProvider.value !=
                                       null
                                   ? PrettyQrDecorationImage(
-                                      scale: 0.15,
+                                      scale: 0.13,
                                       image:
                                           controller.qrIconImageProvider.value!,
                                     )
@@ -64,7 +64,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                     } else {
                       return Image.asset(
                         "assets/images/qr-example.jpeg",
-                        width: 200,
+                        width: 220,
                       );
                     }
                   }),
