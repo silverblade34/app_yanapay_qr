@@ -1,10 +1,12 @@
 import 'package:app_yanapay_qr/app/bindings/home_binding.dart';
+import 'package:app_yanapay_qr/app/bindings/qrevent_binding.dart';
 import 'package:app_yanapay_qr/app/bindings/qrmail_binding.dart';
 import 'package:app_yanapay_qr/app/bindings/qrscan_binding.dart';
 import 'package:app_yanapay_qr/app/bindings/qrtext_binding.dart';
 import 'package:app_yanapay_qr/app/bindings/qrwebsite_binding.dart';
 import 'package:app_yanapay_qr/app/middlewares/global_middleware.dart';
 import 'package:app_yanapay_qr/app/ui/pages/home/home_page.dart';
+import 'package:app_yanapay_qr/app/ui/pages/qrevent/qrevent_page.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrmail/qrmail_page.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrscan/qrscan_page.dart';
 import 'package:app_yanapay_qr/app/ui/pages/qrtext/qrtext_page.dart';
@@ -46,11 +48,17 @@ abstract class AppPages {
       transition: Transition.fadeIn,
       binding: QrScanBinding(),
     ),
-      GetPage(
+    GetPage(
       name: Routes.QR_MAIL,
       page: () => const QRMailPage(),
       transition: Transition.fadeIn,
       binding: QRMailBinding(),
+    ),
+    GetPage(
+      name: Routes.QR_EVENT,
+      page: () => const QrEventPage(),
+      transition: Transition.fadeIn,
+      binding: QrEventBinding(),
     )
   ];
 }

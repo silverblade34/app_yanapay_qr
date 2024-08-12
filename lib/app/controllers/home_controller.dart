@@ -22,28 +22,28 @@ class HomeController extends GetxController {
     TypeQr(
       image: "assets/images/calendario.png",
       name: "Evento",
-      to: "/qrllamada",
+      to: "/qrevent",
     ),
-    TypeQr(
-      image: "assets/images/whatsapp.png",
-      name: "Whatsapp",
-      to: "/qrwhatsapp",
-    ),
-    TypeQr(
-      image: "assets/images/vcard.png",
-      name: "V-Card",
-      to: "/vcard",
-    ),
-    TypeQr(
-      image: "assets/images/geolocalizacion.png",
-      name: "Geolocalización",
-      to: "/geolocalizacion",
-    ),
-    TypeQr(
-      image: "assets/images/wifi.png",
-      name: "Wi-Fi",
-      to: "/wifi",
-    ),
+    // TypeQr(
+    //   image: "assets/images/whatsapp.png",
+    //   name: "Whatsapp",
+    //   to: "/qrwhatsapp",
+    // ),
+    // TypeQr(
+    //   image: "assets/images/vcard.png",
+    //   name: "V-Card",
+    //   to: "/vcard",
+    // ),
+    // TypeQr(
+    //   image: "assets/images/geolocalizacion.png",
+    //   name: "Geolocalización",
+    //   to: "/geolocalizacion",
+    // ),
+    // TypeQr(
+    //   image: "assets/images/wifi.png",
+    //   name: "Wi-Fi",
+    //   to: "/wifi",
+    // ),
   ]);
   final box = GetStorage();
 

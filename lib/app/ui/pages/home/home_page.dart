@@ -41,7 +41,7 @@ class HomePage extends GetView<HomeController> {
         child: Column(
           children: [
             const SizedBox(
-              height: 10,
+              height: 30,
             ),
             const Text(
               "Generar codigo QR",
@@ -59,10 +59,10 @@ class HomePage extends GetView<HomeController> {
               height: 35,
             ),
             Container(
-              height: screenHeight - 252,
+              height: screenHeight * 0.648,
               padding: const EdgeInsets.symmetric(
                 horizontal: 30,
-                vertical: 40,
+                vertical: 60,
               ),
               decoration: const BoxDecoration(
                 color: BACK_INDIGO,

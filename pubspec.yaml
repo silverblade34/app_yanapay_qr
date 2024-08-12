@@ -36,6 +36,7 @@ dependencies:
   introduction_slider: ^2.0.1
   flutter_easyloading: ^3.0.5
   flutter_colorpicker: ^1.0.3
+  board_datetime_picker: ^1.6.2
   screenshot: ^3.0.0
   path_provider: ^2.1.3
   esys_flutter_share_plus: ^2.2.0

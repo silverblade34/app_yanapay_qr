@@ -27,6 +27,10 @@ class QrScanController extends GetxController {
               qrContent.value.startsWith("https")) {
             _openUrl(qrContent.value);
           }
+          // Detectar si es un enlace para agregar a calendario
+          else if (qrContent.value.startsWith("googlecalendar")) {
+            _openCalendar(qrContent.value);
+          }
         }
       }
     });
@@ -53,5 +57,16 @@ class QrScanController extends GetxController {
   void _openEmailClient(String mailtoUrl) async {
     Uri url = Uri.parse(mailtoUrl);
     launchUrl(url);
+  }
+
+  // Función para abrir la interfaz de calendario
+  void _openCalendar(String calendarUrl) async {
+    try {
+      Uri url = Uri.parse(calendarUrl);
+      launchUrl(url);
+    } catch (e) {
+      print("---------------------------------------ERROR-----------------------------");
+      print(e.toString());
+    }
   }
 }
