@@ -30,7 +30,5 @@ class QrScanController extends GetxController {
 
   void copyToClipboard() {
     Clipboard.setData(ClipboardData(text: qrContent.value));
-    Get.snackbar('Copiado', 'Contenido copiado al portapapeles',
-        snackPosition: SnackPosition.BOTTOM);
   }
 }

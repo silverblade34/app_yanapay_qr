@@ -52,6 +52,7 @@ class QrWebsitePage extends GetView<QrWebsiteController> {
                               image: controller.qrIconImageProvider.value !=
                                       null
                                   ? PrettyQrDecorationImage(
+                                      scale: 0.15,
                                       image:
                                           controller.qrIconImageProvider.value!,
                                     )

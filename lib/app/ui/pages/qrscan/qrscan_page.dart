@@ -53,7 +53,6 @@ class QrScanPage extends GetView<QrScanController> {
                 cutOutSize: 290,
               ),
             ),
-            // Tooltip para mostrar el contenido del QR
             Obx(() {
               if (controller.qrDetected.value) {
                 return Positioned(
@@ -76,11 +75,12 @@ class QrScanPage extends GetView<QrScanController> {
                               color: Colors.black,
                               fontSize: 16,
                             ),
+                            maxLines: null,
+                            overflow: TextOverflow.visible,
                           ),
                           const SizedBox(width: 10),
                           GestureDetector(
-                            onTap: controller
-                                .copyToClipboard, // Llamar a la función para copiar
+                            onTap: controller.copyToClipboard,
                             child: const Icon(
                               Icons.copy,
                               color: GREY_HARD,
